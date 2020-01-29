@@ -7,7 +7,7 @@ class SessionsController < ApplicationController
     password = params[:session][:password]
     if login(email, password)
       flash[:success] = 'ログインに成功しました。'
-      redirect_to @user
+      redirect_to root_url
     else
       flash.now[:danger] = 'ログインに失敗しました。'
       render :new
@@ -18,6 +18,18 @@ class SessionsController < ApplicationController
     session[:user_id] = nil
     flash[:success] = 'ログアウトしました。'
     redirect_to root_url
+  end
+  
+  def update
+
+    if @tasks.update(task_params)
+      flash[:success] = 'タスク は正常に更新されました'
+      redirect_to @tasks
+    else
+      flash.now[:danger] = 'タスク は更新されませんでした'
+      render :edit
+    end
+    
   end
 
   private
